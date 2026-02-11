@@ -1,18 +1,26 @@
-pipeline{
+pipeline {
     agent any
+
     stages {
-        stage('source code') {
+
+        stage('Source Code') {
             steps {
                 echo 'Cloning...'
-                   git branch: 'main', url: 'https://github.com/Marvel-k23/jenkins.git'
-
+                git branch: 'main', url: 'https://github.com/Marvel-k23/jenkins.git'
             }
         }
-        stage('Deploy') {
+
+        stage('Build Docker Image') {
             steps {
-                echo 'Deploying...'
+                echo 'Building Docker Image...'
                 sh 'docker build -t job-12 .'
-                sh 'docker run -d -p 80:80'
+            }
+        }
+
+        stage('Deploy Container') {
+            steps {
+                echo 'Deploying Container...'
+                sh 'docker run -d -p 80:80 --name job-12 job-12'
             }
         }
     }
