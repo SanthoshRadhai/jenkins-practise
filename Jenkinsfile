@@ -22,7 +22,7 @@ pipeline {
                 echo 'Deploying Container...'
                 sh 'docker stop job-12'
                 sh 'docker rm job-12'
-                sh 'docker run  --name job-12 job-12'
+                sh 'docker run job-12'
             }
         }
     }
